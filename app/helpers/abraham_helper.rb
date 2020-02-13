@@ -16,10 +16,12 @@ module AbrahamHelper
       remaining = tours.keys - completed.map(&:tour_name)
 
       if remaining.any?
-        # Generate the javascript snippet for the next remaining tour
-        render(partial: "application/abraham",
-               locals: { tour_name: remaining.first,
-                         steps: tours[remaining.first]["steps"] })
+        remaining.each do |tour_key|
+          # Generate the javascript snippet for the next remaining tours
+          render(partial: "application/abraham",
+                 locals: { tour_name: tour_key,
+                           steps: tours[tour_key]["steps"] })
+        end
       end
     end
   end
